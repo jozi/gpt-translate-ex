@@ -4,12 +4,12 @@
   "version": "1.0",
   "description": "Translate selected text using ChatGPT API",
   "icons": {
-    "128": "store_icon_128x128.png"
+    "128": "images/extension-icon.png"
   },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "128": "store_icon_128x128.png"
+      "128": "images/extension-icon.png"
     }
   },
   "permissions": ["activeTab", "scripting", "storage"],
