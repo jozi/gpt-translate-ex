@@ -21,13 +21,20 @@ A powerful Chrome extension that translates English text to Persian using OpenAI
 ### From Chrome Web Store
 *Coming Soon! The extension is currently under review by the Chrome Web Store team (estimated review time: 2-3 weeks).*
 
-### Manual Installation
+### Direct Installation (Recommended)
+1. Download `gpt-translator.crx` from the [latest release](https://github.com/jozi/gpt-translate-ex/releases/latest)
+2. Open Chrome and go to `chrome://extensions`
+3. Enable "Developer mode" (toggle in top-right corner)
+4. Drag and drop the downloaded `gpt-translator.crx` file into Chrome
+5. Click "Add extension" when prompted
+
+### Manual Installation (for developers)
 1. Clone this repository:
 ```bash
 git clone https://github.com/jozi/gpt-translate-ex.git
 ```
 2. Open Chrome and go to `chrome://extensions`
-3. Enable "Developer mode"
+3. Enable "Developer mode" (toggle in top-right corner)
 4. Click "Load unpacked"
 5. Select the project folder
 
