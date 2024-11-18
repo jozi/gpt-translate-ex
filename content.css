@@ -8,15 +8,42 @@
   .gpt-translator-popup {
     position: fixed;
     background: white;
-    border: 1px solid #ccc;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 15px;
+    padding: 12px;
     max-width: 400px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 10000;
     font-family: system-ui, -apple-system, sans-serif;
     direction: rtl;
     line-height: 1.6;
+  }
+  
+  .gpt-translator-popup .translation-content {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-bottom: 8px;
+  }
+  
+  .gpt-translator-popup .copy-button {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    padding: 4px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  
+  .gpt-translator-popup .copy-button:hover {
+    opacity: 1;
+  }
+  
+  .gpt-translator-popup .copy-icon {
+    font-size: 14px;
   }
   
   .gpt-translator-popup.error {

@@ -1,0 +1,184 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+  --success-color: #22c55e;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+body {
+  width: 320px;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  direction: rtl;
+}
+
+.container {
+  padding: 1rem;
+}
+
+header {
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.settings-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.api-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.api-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.api-icon {
+  font-size: 1.25rem;
+  color: var(--success-color);
+}
+
+.change-key-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.change-key-btn:hover {
+  background: var(--bg-color);
+}
+
+.api-input {
+  margin-top: 1rem;
+}
+
+.api-input input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.api-input button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.api-input button:hover {
+  background: var(--primary-hover);
+}
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.setting-item label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.setting-item .icon {
+  font-size: 1rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 0.375rem;
+  background: var(--border-color);
+  border-radius: 0.25rem;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+select {
+  padding: 0.375rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background: var(--card-bg);
+  font-size: 0.875rem;
+}
+
+footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.hint {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.message {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.message.error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.message.success {
+  background: #dcfce7;
+  color: #15803d;
+}

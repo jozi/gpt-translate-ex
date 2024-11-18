@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
   <title>مترجم GPT</title>
-  <style>
-    body { 
-      width: 300px; 
-      padding: 10px; 
-      font-family: Arial, sans-serif; 
-      direction: rtl; 
-    }
-    .slider, select, input[type="text"] { 
-      width: 100%; 
-      margin: 10px 0; 
-      box-sizing: border-box;
-    }
-    .display { 
-      text-align: center; 
-      font-weight: bold; 
-      margin-top: 5px;
-    }
-    .api-key-section {
-      margin: 15px 0;
-      padding: 10px;
-      background: #f5f5f5;
-      border-radius: 5px;
-    }
-    .error {
-      color: red;
-      font-size: 12px;
-      margin-top: 5px;
-      display: none;
-    }
-    .success {
-      color: green;
-      font-size: 12px;
-      margin-top: 5px;
-      display: none;
-    }
-  </style>
 </head>
 <body>
-  <h1>مترجم GPT</h1>
-  
-  <div class="api-key-section">
-    <label for="api-key">OpenAI API Key:</label>
-    <input type="text" id="api-key" class="slider" placeholder="sk-..." />
-    <button id="save-api-key" style="width: 100%; margin-top: 5px;">ذخیره API Key</button>
-    <div id="api-error" class="error">لطفاً یک API key معتبر وارد کنید</div>
-    <div id="api-success" class="success">API key با موفقیت ذخیره شد</div>
-  </div>
+  <div class="container">
+    <header>
+      <h1><span class="icon">🌐</span> مترجم GPT</h1>
+    </header>
 
-  <p>متن را انتخاب کنید تا ترجمه شود.</p>
-  <div>
-    <label for="age-slider">سن مخاطب: <span id="age-display">20</span> سال</label>
-    <input type="range" id="age-slider" class="slider" min="5" max="80" value="20" step="1">
-  </div>
-  <div>
-    <label for="expertise-slider">سطح تخصصی: <span id="expertise-display">متوسط</span></label>
-    <input type="range" id="expertise-slider" class="slider" min="1" max="5" value="3" step="1">
-  </div>
-  <div>
-    <label for="writing-style">سبک نوشتاری:</label>
-    <select id="writing-style">
-      <option value="formal">رسمی</option>
-      <option value="informal">غیر رسمی</option>
-      <option value="colloquial">لهجه عامیانه</option>
-    </select>
-  </div>
-  <div>
-    <label for="creativity-slider">میزان خلاقیت: <span id="creativity-display">متوسط</span></label>
-    <input type="range" id="creativity-slider" class="slider" min="1" max="5" value="3" step="1">
+    <div class="settings-card">
+      <div class="api-section">
+        <div id="api-status" class="api-status" title="وضعیت اتصال به API">
+          <div class="api-icon">🔑</div>
+          <button id="changeApiKey" class="change-key-btn" style="display: none;">تغییر کلید</button>
+        </div>
+        <div id="api-input" class="api-input" style="display: none;">
+          <input type="text" id="apiKey" placeholder="کلید OpenAI API را وارد کنید (sk-...)" autocomplete="off" spellcheck="false">
+          <button id="saveButton">ذخیره</button>
+          <div id="message" class="message"></div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="setting-item" title="سن مخاطب ترجمه را تعیین می‌کند">
+          <label for="age-slider">
+            <span class="icon">👤</span>
+            سن مخاطب: <span id="age-display">20</span> سال
+          </label>
+          <input type="range" id="age-slider" min="5" max="80" value="20" step="1">
+        </div>
+
+        <div class="setting-item" title="سطح تخصصی بودن ترجمه را مشخص می‌کند">
+          <label for="expertise-slider">
+            <span class="icon">📚</span>
+            سطح تخصصی: <span id="expertise-display">متوسط</span>
+          </label>
+          <input type="range" id="expertise-slider" min="1" max="5" value="3" step="1">
+        </div>
+
+        <div class="setting-item" title="سبک نگارش ترجمه را تعیین می‌کند">
+          <label for="writing-style">
+            <span class="icon">✍️</span>
+            سبک نوشتاری:
+          </label>
+          <select id="writing-style">
+            <option value="formal">رسمی</option>
+            <option value="informal">غیر رسمی</option>
+            <option value="colloquial">محاوره‌ای</option>
+          </select>
+        </div>
+
+        <div class="setting-item" title="میزان خلاقیت در ترجمه را تنظیم می‌کند">
+          <label for="creativity-slider">
+            <span class="icon">💡</span>
+            میزان خلاقیت: <span id="creativity-display">متوسط</span>
+          </label>
+          <input type="range" id="creativity-slider" min="1" max="5" value="3" step="1">
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="hint">متن را انتخاب کنید تا ترجمه شود</p>
+    </footer>
   </div>
   <script src="popup.js"></script>
 </body>

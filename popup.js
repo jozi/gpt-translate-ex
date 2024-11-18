@@ -1,78 +1,71 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  // Load saved settings
-  const result = await chrome.storage.sync.get([
-    'openaiApiKey',
-    'targetAge',
-    'expertiseLevel',
-    'writingStyle',
-    'creativityLevel'
-  ]);
-
-  // API Key handling
-  const apiKeyInput = document.getElementById('api-key');
-  const saveKeyButton = document.getElementById('save-api-key');
-  const keyStatus = document.getElementById('api-error');
-
-  if (result.openaiApiKey) {
-    // Show only first 8 characters of API key
-    const key = result.openaiApiKey;
-    apiKeyInput.value = key.slice(0, 8) + '•'.repeat(key.length - 8);
-    apiKeyInput.setAttribute('data-masked', 'true');
+  const apiStatus = document.getElementById('api-status');
+  const apiIcon = apiStatus.querySelector('.api-icon');
+  const changeKeyBtn = document.getElementById('changeApiKey');
+  const apiInput = document.getElementById('api-input');
+  const apiKeyInput = document.getElementById('apiKey');
+  const saveButton = document.getElementById('saveButton');
+  const messageDiv = document.getElementById('message');
+  
+  // Load saved API key
+  const { openaiApiKey } = await chrome.storage.sync.get('openaiApiKey');
+  if (openaiApiKey) {
+    apiIcon.classList.add('has-key');
+    changeKeyBtn.style.display = 'block';
+  } else {
+    apiInput.style.display = 'block';
   }
 
-  // Prevent copying API key
-  apiKeyInput.addEventListener('copy', (e) => {
-    e.preventDefault();
+  // Toggle API input when clicking the icon
+  apiIcon.addEventListener('click', () => {
+    if (openaiApiKey) {
+      changeKeyBtn.style.display = changeKeyBtn.style.display === 'none' ? 'block' : 'none';
+    }
   });
 
-  // Clear input when focused if it's masked
-  apiKeyInput.addEventListener('focus', () => {
-    if (apiKeyInput.getAttribute('data-masked') === 'true') {
-      apiKeyInput.value = '';
-      apiKeyInput.setAttribute('data-masked', 'false');
-    }
+  // Show API input when clicking change button
+  changeKeyBtn.addEventListener('click', () => {
+    apiInput.style.display = 'block';
+    changeKeyBtn.style.display = 'none';
+    apiKeyInput.value = '';
   });
 
   // Save API key
-  saveKeyButton.addEventListener('click', async () => {
-    const apiKey = apiKeyInput.value.trim();
+  saveButton.addEventListener('click', async () => {
+    const newApiKey = apiKeyInput.value.trim();
     
-    if (!apiKey) {
-      keyStatus.textContent = 'لطفاً API key را وارد کنید';
-      keyStatus.className = 'error';
-      document.getElementById('api-success').style.display = 'none';
-      keyStatus.style.display = 'block';
+    if (!newApiKey) {
+      showMessage('لطفاً کلید API را وارد کنید', 'error');
       return;
     }
 
-    if (!apiKey.startsWith('sk-') || apiKey.length < 20) {
-      keyStatus.textContent = 'فرمت API key صحیح نیست';
-      keyStatus.className = 'error';
-      document.getElementById('api-success').style.display = 'none';
-      keyStatus.style.display = 'block';
+    if (!newApiKey.startsWith('sk-') || newApiKey.length < 20) {
+      showMessage('فرمت کلید API صحیح نیست', 'error');
       return;
     }
 
     try {
-      await chrome.storage.sync.set({ openaiApiKey: apiKey });
-      document.getElementById('api-success').textContent = 'API key با موفقیت ذخیره شد';
-      document.getElementById('api-success').className = 'success';
-      document.getElementById('api-success').style.display = 'block';
-      keyStatus.style.display = 'none';
+      await chrome.storage.sync.set({ openaiApiKey: newApiKey });
+      showMessage('کلید API ذخیره شد', 'success');
+      apiIcon.classList.add('has-key');
       
-      // Mask the API key
       setTimeout(() => {
-        apiKeyInput.value = apiKey.slice(0, 8) + '•'.repeat(apiKey.length - 8);
-        apiKeyInput.setAttribute('data-masked', 'true');
-        document.getElementById('api-success').style.display = 'none';
-      }, 3000);
+        apiInput.style.display = 'none';
+        changeKeyBtn.style.display = 'block';
+      }, 1500);
     } catch (error) {
-      keyStatus.textContent = 'خطا در ذخیره‌سازی API key';
-      keyStatus.className = 'error';
-      document.getElementById('api-success').style.display = 'none';
-      keyStatus.style.display = 'block';
+      showMessage('خطا در ذخیره‌سازی کلید API', 'error');
     }
   });
+
+  function showMessage(text, type) {
+    messageDiv.textContent = text;
+    messageDiv.className = `message ${type}`;
+    setTimeout(() => {
+      messageDiv.className = 'message';
+      messageDiv.textContent = '';
+    }, 3000);
+  }
 
   // Other settings
   const ageSlider = document.getElementById('age-slider');
@@ -84,6 +77,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const creativityDisplay = document.getElementById('creativity-display');
 
   // Set initial values
+  const result = await chrome.storage.sync.get([
+    'targetAge',
+    'expertiseLevel',
+    'writingStyle',
+    'creativityLevel'
+  ]);
   ageSlider.value = result.targetAge || 20;
   ageDisplay.textContent = result.targetAge || 20;
   expertiseSlider.value = result.expertiseLevel || 3;

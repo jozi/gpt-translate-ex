@@ -61,7 +61,27 @@ function showPopup(content) {
   popupElement.style.left = `${rect.left + window.scrollX}px`;
   popupElement.style.top = `${rect.bottom + window.scrollY}px`;
 
-  popupElement.innerHTML = content;
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'translation-content';
+  contentDiv.innerHTML = content;
+
+  const copyButton = document.createElement('button');
+  copyButton.className = 'copy-button';
+  copyButton.innerHTML = '📋';
+  copyButton.title = 'کپی متن';
+  copyButton.onclick = (e) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(content.replace(/<[^>]+>/g, ''))
+      .then(() => {
+        copyButton.innerHTML = '✓';
+        setTimeout(() => {
+          copyButton.innerHTML = '📋';
+        }, 2000);
+      });
+  };
+
+  popupElement.appendChild(contentDiv);
+  popupElement.appendChild(copyButton);
   document.body.appendChild(popupElement);
 }
 
@@ -78,7 +98,12 @@ function processText(paragraphs) {
 
 let isTranslating = false;
 
-document.addEventListener('mouseup', async () => {
+document.addEventListener('mouseup', async (e) => {
+  // اگر کلیک روی پاپ‌آپ بود، هیچ کاری نکن
+  if (popupElement && popupElement.contains(e.target)) {
+    return;
+  }
+
   if (isTranslating) return;
   
   clearTimeout(translationTimer);
@@ -88,15 +113,20 @@ document.addEventListener('mouseup', async () => {
     const selectedText = selection.toString().trim();
     
     if (!selectedText) return;
+
+    const MAX_CHARS = 1000;
+    if (selectedText.length > MAX_CHARS) {
+      showErrorPopup(`متن انتخابی خیلی طولانی است (${selectedText.length} کاراکتر). لطفاً متن کوتاه‌تری انتخاب کنید.`);
+      return;
+    }
     
     const currentRequest = Date.now();
     lastTranslationRequest = currentRequest;
     
     try {
-      // Check if API key exists
       const { openaiApiKey } = await chrome.storage.sync.get('openaiApiKey');
       if (!openaiApiKey) {
-        showErrorPopup('لطفاً ابتدا API key خود را در تنظیمات افزونه وارد کنید');
+        showErrorPopup('لطفاً کلید API را وارد کنید');
         return;
       }
       
@@ -126,7 +156,6 @@ document.addEventListener('mouseup', async () => {
       }
     } catch (error) {
       if (error.message.includes('Extension context invalidated')) {
-        // افزونه ری‌لود شده است - نیازی به نمایش خطا نیست
         return;
       }
       showErrorPopup(error.message);
