@@ -69,16 +69,22 @@ function showPopup(content) {
   copyButton.className = 'copy-button';
   copyButton.innerHTML = '📋';
   copyButton.title = 'کپی متن';
-  copyButton.onclick = (e) => {
+  copyButton.addEventListener('click', (e) => {
+    if (!e || !copyButton) return;
     e.stopPropagation();
     navigator.clipboard.writeText(content.replace(/<[^>]+>/g, ''))
       .then(() => {
-        copyButton.innerHTML = '✓';
-        setTimeout(() => {
-          copyButton.innerHTML = '📋';
-        }, 2000);
-      });
-  };
+        if (copyButton) {
+          copyButton.innerHTML = '✓';
+          setTimeout(() => {
+            if (copyButton) {
+              copyButton.innerHTML = '📋';
+            }
+          }, 2000);
+        }
+      })
+      .catch(err => console.error('Error copying text:', err));
+  });
 
   popupElement.appendChild(contentDiv);
   popupElement.appendChild(copyButton);

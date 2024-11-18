@@ -1,64 +1,106 @@
-# GPT Translator Chrome Extension
+# 🌐 GPT Translator Chrome Extension
 
-یک افزونه مرورگر کروم که با استفاده از ChatGPT API به شما امکان ترجمه متن انتخاب شده از انگلیسی به فارسی را می‌دهد، با قابلیت تنظیم سن مخاطب، سطح تخصصی، سبک نوشتاری و میزان خلاقیت در ترجمه.
+A powerful Chrome extension that translates English text to Persian using OpenAI's GPT API, with customizable translation settings for age group, expertise level, writing style, and creativity level.
 
-## ویژگی‌ها
-- ترجمه سریع متن انتخاب شده از انگلیسی به فارسی
-- تنظیم سن مخاطب (از ۵ تا ۸۰ سال)
-- انتخاب سطح تخصصی (از بسیار ساده تا بسیار تخصصی)
-- انتخاب سبک نوشتاری (رسمی، غیر رسمی، لهجه عامیانه)
-- تنظیم میزان خلاقیت در ترجمه (از تحت‌اللفظی تا بسیار خلاقانه)
-- رابط کاربری ساده و فارسی
-- ذخیره امن API key در مرورگر
+یک افزونه قدرتمند کروم که با استفاده از API هوش مصنوعی GPT، متن‌های انگلیسی را به فارسی ترجمه می‌کند، با قابلیت شخصی‌سازی ترجمه برای گروه سنی، سطح تخصصی، سبک نگارش و میزان خلاقیت.
 
-## نصب
+## ✨ Features | ویژگی‌ها
 
-1. این مخزن را دانلود یا clone کنید
-2. در کروم به آدرس `chrome://extensions` بروید
-3. گزینه "Developer mode" را در گوشه بالا سمت راست فعال کنید
-4. روی "Load unpacked" کلیک کنید
-5. پوشه پروژه را انتخاب کنید
+- 🚀 Fast translation of selected text from English to Persian
+- 👥 Adjustable target age (5-80 years)
+- 📚 Customizable expertise level (from very simple to highly technical)
+- ✍️ Multiple writing styles (formal, informal, colloquial)
+- 💡 Adjustable creativity in translation
+- 🎨 Modern and intuitive user interface
+- 🔐 Secure API key storage
+- 📋 One-click copy functionality
+- ⚡ Real-time translation updates
 
-## تنظیم API Key
+## 🛠️ Installation | نصب
 
-1. به [OpenAI](https://platform.openai.com/account/api-keys) بروید
-2. یک حساب کاربری ایجاد کنید (اگر ندارید)
-3. به بخش API keys بروید
-4. یک API key جدید ایجاد کنید
-5. روی آیکون افزونه در نوار ابزار کروم کلیک کنید
-6. API key را در فیلد مربوطه وارد کنید
-7. روی دکمه "ذخیره API Key" کلیک کنید
-8. پس از مشاهده پیام موفقیت‌آمیز، می‌توانید شروع به استفاده از افزونه کنید
+### From Chrome Web Store | از کروم استور
+1. Visit our [Chrome Web Store page](https://chrome.google.com/webstore/detail/gpt-translator)
+2. Click "Add to Chrome"
+3. Follow the installation prompts
 
-## نحوه استفاده
+### Manual Installation | نصب دستی
+1. Clone this repository:
+```bash
+git clone https://github.com/jozi/gpt-translate-ex.git
+```
+2. Open Chrome and go to `chrome://extensions`
+3. Enable "Developer mode"
+4. Click "Load unpacked"
+5. Select the project folder
 
-1. متن انگلیسی مورد نظر خود را در هر صفحه وب انتخاب کنید
-2. روی آیکون افزونه کلیک کنید
-3. تنظیمات ترجمه را انجام دهید:
-   - سن مخاطب را تعیین کنید
-   - سطح تخصصی را انتخاب کنید
-   - سبک نوشتاری را مشخص کنید
-   - میزان خلاقیت در ترجمه را تنظیم کنید
-4. متن انتخاب شده به طور خودکار ترجمه خواهد شد
+## 🔑 API Key Setup | تنظیم کلید API
 
-## توسعه
+1. Visit [OpenAI's API Keys page](https://platform.openai.com/account/api-keys)
+2. Create or log in to your account
+3. Generate a new API key
+4. Click the extension icon in Chrome
+5. Enter your API key
+6. Click "Save"
 
-برای توسعه این پروژه:
+## 🎯 How to Use | نحوه استفاده
 
-1. تغییرات خود را اعمال کنید
-2. به `chrome://extensions` بروید
-3. روی آیکون refresh کلیک کنید
-4. افزونه را تست کنید
+1. Select any English text on a webpage
+2. The translation popup will appear automatically
+3. Adjust translation settings as needed:
+   - Target age
+   - Expertise level
+   - Writing style
+   - Creativity level
+4. Copy the translation with one click
 
-## مشارکت
+## ⚙️ Technical Details | جزئیات فنی
 
-از مشارکت شما استقبال می‌کنیم! لطفاً:
+- **Platform**: Chrome Browser Extension
+- **API**: OpenAI GPT
+- **Storage**: Chrome Storage Sync API
+- **Languages**: JavaScript, HTML, CSS
+- **Manifest Version**: 3
 
-1. یک fork از پروژه ایجاد کنید
-2. یک branch جدید برای ویژگی خود ایجاد کنید
-3. تغییرات خود را commit کنید
-4. یک Pull Request ایجاد کنید
+## 🔒 Privacy & Security | حریم خصوصی و امنیت
 
-## لایسنس
+- Only communicates with OpenAI's official API
+- No data collection or third-party servers
+- API key stored securely in Chrome sync storage
+- No tracking or analytics
+- Open source code for transparency
 
-MIT
+## 🚧 Development | توسعه
+
+1. Make your changes
+2. Test locally:
+```bash
+# Load the extension in Chrome
+chrome://extensions -> Load unpacked
+
+# Make changes
+# Reload the extension to see changes
+```
+
+## 🤝 Contributing | مشارکت
+
+We welcome contributions! Please:
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📝 License | مجوز
+
+MIT License - see [LICENSE](LICENSE) for details
+
+## 📬 Contact | تماس
+
+- GitHub Issues: [Create an issue](https://github.com/jozi/gpt-translate-ex/issues)
+- Email: [your-email@example.com]
+
+## 🙏 Acknowledgments | قدردانی
+
+- OpenAI for providing the GPT API
+- All contributors and users of this extension

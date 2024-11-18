@@ -3,10 +3,16 @@
   "name": "GPT Translator",
   "version": "1.0",
   "description": "Translate selected text using ChatGPT API",
-  "permissions": ["activeTab", "scripting", "storage"],
-  "action": {
-    "default_popup": "popup.html"
+  "icons": {
+    "128": "store_icon_128x128.png"
   },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "store_icon_128x128.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
   "background": {
     "service_worker": "background.js"
   },

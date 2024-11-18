@@ -29,3 +29,4 @@ yarn-error.log*
 # Chrome Extension packaging
 *.crx
 *.pem
+*.zip
