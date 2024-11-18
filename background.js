@@ -8,7 +8,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function translateParagraphs(paragraphs, targetAge, expertiseLevel, writingStyle, creativityLevel) {
-  const apiKey = 'sk-None-Zilx2jzwYHhpWMwDSUypT3BlbkFJLg46NLCbtvlToBVOaQkW';
+  // Get API key from environment variable
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error('OpenAI API key not found. Please set it in your .env file.');
+  }
   const expertiseLevels = ['بسیار ساده', 'ساده', 'متوسط', 'تخصصی', 'بسیار تخصصی'];
   const writingStyles = {
     formal: 'رسمی',
