@@ -9,19 +9,47 @@
       font-family: Arial, sans-serif; 
       direction: rtl; 
     }
-    .slider, select { 
+    .slider, select, input[type="text"] { 
       width: 100%; 
       margin: 10px 0; 
+      box-sizing: border-box;
     }
     .display { 
       text-align: center; 
       font-weight: bold; 
       margin-top: 5px;
     }
+    .api-key-section {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 5px;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    .success {
+      color: green;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>مترجم GPT</h1>
+  
+  <div class="api-key-section">
+    <label for="api-key">OpenAI API Key:</label>
+    <input type="text" id="api-key" class="slider" placeholder="sk-..." />
+    <button id="save-api-key" style="width: 100%; margin-top: 5px;">ذخیره API Key</button>
+    <div id="api-error" class="error">لطفاً یک API key معتبر وارد کنید</div>
+    <div id="api-success" class="success">API key با موفقیت ذخیره شد</div>
+  </div>
+
   <p>متن را انتخاب کنید تا ترجمه شود.</p>
   <div>
     <label for="age-slider">سن مخاطب: <span id="age-display">20</span> سال</label>

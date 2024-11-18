@@ -8,11 +8,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function translateParagraphs(paragraphs, targetAge, expertiseLevel, writingStyle, creativityLevel) {
-  // Get API key from environment variable
-  const apiKey = process.env.OPENAI_API_KEY;
+  // Get API key from chrome.storage
+  const result = await chrome.storage.sync.get('openaiApiKey');
+  const apiKey = result.openaiApiKey;
+  
   if (!apiKey) {
-    throw new Error('OpenAI API key not found. Please set it in your .env file.');
+    throw new Error('لطفاً ابتدا API key خود را در تنظیمات وارد کنید');
   }
+
   const expertiseLevels = ['بسیار ساده', 'ساده', 'متوسط', 'تخصصی', 'بسیار تخصصی'];
   const writingStyles = {
     formal: 'رسمی',

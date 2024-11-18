@@ -19,6 +19,28 @@ function showLoadingPopup() {
   document.body.appendChild(popupElement);
 }
 
+function showErrorPopup(message) {
+  removePopup();
+  
+  const selection = window.getSelection();
+  const range = selection.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+
+  popupElement = document.createElement('div');
+  popupElement.className = 'gpt-translator-popup error';
+  popupElement.innerHTML = `
+    <div class="error-message">${message}</div>
+    <button class="settings-button" onclick="window.open(chrome.runtime.getURL('popup.html'))">
+      تنظیمات افزونه
+    </button>
+  `;
+  popupElement.style.position = 'absolute';
+  popupElement.style.left = `${rect.left + window.scrollX}px`;
+  popupElement.style.top = `${rect.bottom + window.scrollY}px`;
+
+  document.body.appendChild(popupElement);
+}
+
 function removePopup() {
   if (popupElement) {
     popupElement.remove();
@@ -27,7 +49,7 @@ function removePopup() {
 }
 
 function showPopup(content) {
-  removePopup(); // Remove existing popup before creating a new one
+  removePopup();
   
   const selection = window.getSelection();
   const range = selection.getRangeAt(0);
@@ -54,47 +76,64 @@ function processText(paragraphs) {
   ).join('');
 }
 
-document.addEventListener('mouseup', () => {
+let isTranslating = false;
+
+document.addEventListener('mouseup', async () => {
+  if (isTranslating) return;
+  
   clearTimeout(translationTimer);
   
-  translationTimer = setTimeout(() => {
+  translationTimer = setTimeout(async () => {
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
-    if (selectedText) {
-      const currentRequest = Date.now();
-      lastTranslationRequest = currentRequest;
+    
+    if (!selectedText) return;
+    
+    const currentRequest = Date.now();
+    lastTranslationRequest = currentRequest;
+    
+    try {
+      // Check if API key exists
+      const { openaiApiKey } = await chrome.storage.sync.get('openaiApiKey');
+      if (!openaiApiKey) {
+        showErrorPopup('لطفاً ابتدا API key خود را در تنظیمات افزونه وارد کنید');
+        return;
+      }
       
+      isTranslating = true;
       showLoadingPopup();
       
       const paragraphs = splitIntoParagraphs(selectedText);
       
-      chrome.storage.sync.get(['targetAge', 'expertiseLevel', 'writingStyle', 'creativityLevel'], function(result) {
-        const targetAge = result.targetAge || 20;
-        const expertiseLevel = result.expertiseLevel || 3;
-        const writingStyle = result.writingStyle || 'formal';
-        const creativityLevel = result.creativityLevel || 3;
-        
-        chrome.runtime.sendMessage({ 
-          action: "translate", 
-          paragraphs: paragraphs,
-          targetAge: targetAge,
-          expertiseLevel: expertiseLevel,
-          writingStyle: writingStyle,
-          creativityLevel: creativityLevel
-        }, response => {
-          if (currentRequest === lastTranslationRequest) {
-            if (response.translation) {
-              showPopup(processText(response.translation));
-            } else if (response.error) {
-              showPopup(`خطا: ${response.error}`);
-            }
-          }
-        });
+      const { targetAge = 20, expertiseLevel = 3, writingStyle = 'formal', creativityLevel = 3 } = 
+        await chrome.storage.sync.get(['targetAge', 'expertiseLevel', 'writingStyle', 'creativityLevel']);
+      
+      const response = await chrome.runtime.sendMessage({
+        action: 'translate',
+        paragraphs,
+        targetAge,
+        expertiseLevel,
+        writingStyle,
+        creativityLevel
       });
-    } else {
-      removePopup();
+      
+      if (lastTranslationRequest !== currentRequest) return;
+      
+      if (response.error) {
+        showErrorPopup(response.error);
+      } else {
+        showPopup(processText(response.translation));
+      }
+    } catch (error) {
+      if (error.message.includes('Extension context invalidated')) {
+        // افزونه ری‌لود شده است - نیازی به نمایش خطا نیست
+        return;
+      }
+      showErrorPopup(error.message);
+    } finally {
+      isTranslating = false;
     }
-  }, 300);
+  }, 500);
 });
 
 document.addEventListener('mousedown', (event) => {

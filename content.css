@@ -6,20 +6,42 @@
   }
   
   .gpt-translator-popup {
-    font-family: 'Vazirmatn', Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    direction: rtl;
-    text-align: right;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+    position: fixed;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
     max-width: 400px;
-    max-height: 300px;
-    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+    font-family: system-ui, -apple-system, sans-serif;
+    direction: rtl;
+    line-height: 1.6;
+  }
+  
+  .gpt-translator-popup.error {
+    border-color: #ff4444;
+    background-color: #fff8f8;
+  }
+  
+  .gpt-translator-popup .error-message {
+    color: #ff4444;
+    margin-bottom: 10px;
+  }
+  
+  .gpt-translator-popup .settings-button {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  
+  .gpt-translator-popup .settings-button:hover {
+    background: #0056b3;
   }
   
   .gpt-translator-popup p {
@@ -27,7 +49,23 @@
   }
   
   .gpt-translator-popup .en {
-    font-family: Arial, sans-serif;
-    direction: ltr;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Loading animation */
+  .gpt-translator-popup:not(.error):empty::after {
+    content: '';
     display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007AFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
