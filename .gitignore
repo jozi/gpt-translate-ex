@@ -1,0 +1,31 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node modules (if you add them in future)
+node_modules/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Chrome Extension packaging
+*.crx
+*.pem

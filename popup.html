@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>مترجم GPT</title>
+  <style>
+    body { 
+      width: 300px; 
+      padding: 10px; 
+      font-family: Arial, sans-serif; 
+      direction: rtl; 
+    }
+    .slider, select { 
+      width: 100%; 
+      margin: 10px 0; 
+    }
+    .display { 
+      text-align: center; 
+      font-weight: bold; 
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>مترجم GPT</h1>
+  <p>متن را انتخاب کنید تا ترجمه شود.</p>
+  <div>
+    <label for="age-slider">سن مخاطب: <span id="age-display">20</span> سال</label>
+    <input type="range" id="age-slider" class="slider" min="5" max="80" value="20" step="1">
+  </div>
+  <div>
+    <label for="expertise-slider">سطح تخصصی: <span id="expertise-display">متوسط</span></label>
+    <input type="range" id="expertise-slider" class="slider" min="1" max="5" value="3" step="1">
+  </div>
+  <div>
+    <label for="writing-style">سبک نوشتاری:</label>
+    <select id="writing-style">
+      <option value="formal">رسمی</option>
+      <option value="informal">غیر رسمی</option>
+      <option value="colloquial">لهجه عامیانه</option>
+    </select>
+  </div>
+  <div>
+    <label for="creativity-slider">میزان خلاقیت: <span id="creativity-display">متوسط</span></label>
+    <input type="range" id="creativity-slider" class="slider" min="1" max="5" value="3" step="1">
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

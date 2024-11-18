@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .gpt-translator-popup {
+    font-family: 'Vazirmatn', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    direction: rtl;
+    text-align: right;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    max-width: 400px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .gpt-translator-popup p {
+    margin: 0 0 10px 0;
+  }
+  
+  .gpt-translator-popup .en {
+    font-family: Arial, sans-serif;
+    direction: ltr;
+    display: inline-block;
+  }
