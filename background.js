@@ -25,26 +25,31 @@ async function translateParagraphs(paragraphs, targetAge, expertiseLevel, writin
   const creativityLevels = ['تحت‌اللفظی', 'کمی خلاقانه', 'متوسط', 'خلاقانه', 'بسیار خلاقانه'];
   
   const translatedParagraphs = await Promise.all(paragraphs.map(async (paragraph) => {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          { role: 'system', content: `You are a precise translator. Your task is to translate the given text from English to Persian accurately, without adding any explanations or extra information. Ensure the translation is suitable for a ${targetAge}-year-old reader, using a ${expertiseLevels[expertiseLevel - 1]} level of expertise and a ${writingStyles[writingStyle]} writing style. The creativity level should be ${creativityLevels[creativityLevel - 1]}. Strictly translate the content without providing additional context or explanations. Preserve the paragraph structure.` },
-          { role: 'user', content: paragraph }
-        ]
-      })
-    });
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: `You are a precise translator. Your task is to translate the given text from English to Persian accurately, without adding any explanations or extra information. Ensure the translation is suitable for a ${targetAge}-year-old reader, using a ${expertiseLevels[expertiseLevel - 1]} level of expertise and a ${writingStyles[writingStyle]} writing style. The creativity level should be ${creativityLevels[creativityLevel - 1]}. Strictly translate the content without providing additional context or explanations. Preserve the paragraph structure.` },
+            { role: 'user', content: paragraph }
+          ]
+        })
+      });
 
-    const data = await response.json();
-    if (data.error) {
-      throw new Error(data.error.message);
+      const data = await response.json();
+      
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+      return data.choices[0].message.content;
+    } catch (error) {
+      throw error;
     }
-    return data.choices[0].message.content;
   }));
 
   return translatedParagraphs;
